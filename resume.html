@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Resume</title>
+    <style>
+        /* Root Variables for Theming */
+        :root {
+            /* Light Theme (Default) */
+            --bg-primary: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --accent-color: #3e64ff;
+            --accent-hover: #2a3d66;
+            --border-color: #eaeaea;
+            --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --skill-bg: #e9ecef;
+            --timeline-color: #3e64ff;
+            --transition-speed: 0.4s;
+        }
+
+        /* Dark Theme */
+        [data-theme="dark"] {
+            --bg-primary: #121212;
+            --bg-secondary: #1e1e1e;
+            --text-primary: #f5f5f5;
+            --text-secondary: #b3b3b3;
+            --accent-color: #4d7aff;
+            --accent-hover: #6a8fff;
+            --border-color: #2d2d2d;
+            --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            --skill-bg: #2d2d2d;
+            --timeline-color: #4d7aff;
+        }
+
+        /* Reset and Global Styles with Animation Defaults */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color var(--transition-speed),
+            color var(--transition-speed),
+            box-shadow var(--transition-speed),
+            transform 0.3s ease;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Card/Section Styling */
+        section {
+            margin-bottom: 30px;
+            background-color: var(--bg-secondary);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+            transform: translateY(0);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Headings */
+        h1, h2, h3 {
+            color: var(--accent-color);
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--accent-color);
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background-color: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        ul {
+            list-style-position: inside;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 5px;
+            list-style-type: none;
+        }
+
+        li::before {
+            content: "•";
+            color: var(--accent-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--accent-hover);
+        }
+
+        a:hover::after {
+            width: 100%;
+        }
+
+        /* Header Styles */
+        header {
+            text-align: center;
+            padding: 50px 0;
+            position: relative;
+        }
+
+        .profile-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--accent-color);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-container:hover .profile-img {
+            transform: scale(1.05);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 0;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 30px;
+            padding: 10px 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .download-btn {
+            display: inline-block;
+            margin-top: 20px;
+            background-color: var(--accent-color);
+            color: white !important;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(62, 100, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .download-btn::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--accent-hover);
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(62, 100, 255, 0.4);
+            color: white !important;
+        }
+
+        .download-btn:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .download-btn:hover::before {
+            width: 0;
+        }
+
+        /* Contact Info */
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 16px;
+            background-color: var(--bg-secondary);
+            border-radius: 30px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .contact-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .contact-item:hover a {
+            color: white;
+        }
+
+        .contact-icon {
+            font-size: 1.2rem;
+        }
+
+        /* Experience and Education */
+        .timeline-item {
+            margin-bottom: 35px;
+            position: relative;
+            padding-left: 25px;
+            border-left: 3px solid var(--timeline-color);
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: var(--timeline-color);
+            border-radius: 50%;
+            left: -9px;
+            top: 5px;
+        }
+
+        .date {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            display: inline-block;
+            background-color: var(--skill-bg);
+            padding: 3px 10px;
+            border-radius: 15px;
+        }
+
+        .company, .institution {
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        /* Skills */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .skill {
+            background-color: var(--skill-bg);
+            padding: 10px 18px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .skill:hover {
+            background-color: var(--accent-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Projects */
+        .project {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .project:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .project:hover h3 {
+            color: var(--accent-hover);
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+
+        /* Animation keyframes */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animation delays for staggered entrance */
+        section:nth-child(1) { animation-delay: 0.1s; }
+        section:nth-child(2) { animation-delay: 0.2s; }
+        section:nth-child(3) { animation-delay: 0.3s; }
+        section:nth-child(4) { animation-delay: 0.4s; }
+        section:nth-child(5) { animation-delay: 0.5s; }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.4s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.6s; }
+
+        /* Apply animations to sections */
+        section {
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        /* Media Queries */
+        @media (min-width: 768px) {
+            .two-column {
+                flex-direction: row;
+            }
+
+            .column {
+                flex: 1;
+            }
+
+            .left-column {
+                margin-right: 30px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+
+            .profile-img {
+                width: 150px;
+                height: 150px;
+            }
+
+            .theme-toggle {
+                position: relative;
+                right: auto;
+                top: auto;
+                margin: 20px auto 0;
+                display: inline-flex;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <span id="theme-icon">🌙</span>
+            <span id="theme-text">Dark Mode</span>
+        </button>
+
+        <div class="profile-container">
+            <img src="me.jpg" alt="Profile Photo" class="profile-img">
+        </div>
+
+        <h1>Alikhan Azanbayev</h1>
+        <p>Software engineer / Backend developer</p>
+
+        <div class="contact-info">
+            <div class="contact-item">
+                <span class="contact-icon">📧</span>
+                <a href="mailto:aliazanbayev@gmail.com">aliazanbayev@gmail.com</a>
+            </div>
+            <div class="contact-item">
+                <span class="contact-icon">📱</span>
+                <a href="tel:+19364251240">1(936)425-12-40</a>
+            </div>
+            <div class="contact-item">
+                <span class="contact-icon">📍</span>
+                <span>Southfield, USA</span>
+            </div>
+            <div class="contact-item">
+                <span class="contact-icon">🔗</span>
+                <a href="https://linkedin.com/in/azanbayev" target="_blank">LinkedIn</a>
+            </div>
+            <div class="contact-item">
+                <span class="contact-icon">🌐</span>
+                <a href="https://github.com/KfcEnjoyer" target="_blank">GitHub</a>
+            </div>
+        </div>
+
+        <a href="#" class="download-btn">Download Resume</a>
+    </header>
+
+    <section id="summary">
+        <h2>Professional Summary</h2>
+        <p>Software developer with a cybersecurity educational foundation and hands-on engineering experience in the logistics sector. Passionate about backend development while maintaining a personal enthusiasm for PC building and hardware. Guided by core values of honesty and freedom, I bring a unique perspective shaped by my journey from Kazakhstan to the United States, along with a genuine dedication to creating reliable and efficient technological solutions.</p>
+    </section>
+
+    <div class="two-column">
+        <div class="column left-column">
+            <section id="experience">
+                <h2>Work Experience</h2>
+
+                <div class="timeline-item">
+                    <h3>Programming tutor</h3>
+                    <p class="company">Prog Kids</p>
+                    <p class="date">September 2022 - March 2023</p>
+                    <ul>
+                        <li>Helped many students step foot into the programming world</li>
+                        <li>Tutored students world wide</li>
+                        <li>Achieved and surpassed individual goals</li>
+                    </ul>
+                </div>
+
+   <div class="timeline-item">
+    <h3>Software Developer Intern</h3>
+    <p class="company">SmartApps</p>
+    <p class="date">March 2023 - May 2023</p>
+    <ul>
+        <li>Collaborated with cross-functional development teams to deliver features on time in an agile environment</li>
+        <li>Gained comprehensive experience across the entire SDLC from requirements gathering to deployment</li>
+        <li>Recognized with excellent performance evaluation for exceeding project quality standards and learning objectives</li>
+    </ul>
+</div>
+
+                <div class="timeline-item">
+                    <h3>Back End Dev</h3>
+                    <p class="company">Az&A Logistics</p>
+                    <p class="date">June 2023 - July 2024</p>
+                    <ul>
+    <li>Contributed to development of backend services that improved delivery tracking efficiency</li>
+    <li>Collaborated with cross-functional teams to develop and maintain RESTful APIs that facilitated seamless integration with client systems</li>
+</ul>
+                </div>
+                
+                
+            </section>
+
+            <section id="projects">
+                <h2>Projects</h2>
+
+                <div class="project">
+                    <h3>Fullstack online bank application</h3>
+                    <p class="date">2024</p>
+                    <p>A fullstack application written on nodejs using React framework. It uses PostgreSQL for the database.</p>
+                    <p><a href="https://github.com/KfcEnjoyer/online-banking" target="_blank">GitHub page</a></p>
+                    <p><a href="https://al-bank.netlify.app" target="_blank">View Project</a></p>
+                </div>
+
+                <div class="project">
+                    <h3>GoRest</h3>
+                    <p class="date">2025</p>
+                    <p>Application that sends HTTP requests to APIs like Postman. It uses fyne for the ui and native http library to send requests.</p>
+                    <p><a href="https://github.com/KfcEnjoyer/GoRestApi" target="_blank">View Project</a></p>
+                </div>
+            </section>
+        </div>
+
+        <div class="column right-column">
+            <section id="education">
+                <h2>Education</h2>
+
+                <div class="timeline-item">
+                    <h3>Cybersecurity Bachelor's degree</h3>
+                    <p class="institution">Astana IT University</p>
+                    <p class="date">2021 - 2024</p>
+                    <ul>
+                        <li>Participated in different club activities</li>
+                        <li>Participated in BNB Blockchain Hackaton</li>
+                        <li>3.23</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <h3>Master's Degree in Computer Science</h3>
+                    <p class="institution">Lawrence Technological University</p>
+                    <p class="date">2024-2025</p>
+                </div>
+            </section>
+
+            <section id="skills">
+                <h2>Skills</h2>
+                <div class="skills-container">
+                    <span class="skill">Problem Solving</span>
+                    <span class="skill">Critical thinking</span>
+                    <span class="skill">Back End</span>
+                    <span class="skill">Golang</span>
+                    <span class="skill">Python</span>
+                    <span class="skill">Java</span>
+                    <span class="skill">REST</span>
+                    <span class="skill">RPC</span>
+                    <span class="skill">PostgreSQL</span>
+                    <span class="skill">Reactjs</span>
+                    <span class="skill">Nodejs</span>
+                    <span class="skill">Apache Kafka</span>
+                    <span class="skill">Distributed Computing</span>
+                </div>
+            </section>
+
+<!--            <section id="certifications">-->
+<!--                <h2>Certifications</h2>-->
+<!--                <ul>-->
+<!--                    <li>Certification Name (Issuing Organization, Year)</li>-->
+<!--                    <li>Certification Name (Issuing Organization, Year)</li>-->
+<!--                </ul>-->
+<!--            </section>-->
+
+            <section id="languages">
+                <h2>Languages</h2>
+                <ul>
+                    <li>English (Advanced)</li>
+                    <li>Russian (Native)</li>
+                    <li>Kazakh (Native)</li>
+                </ul>
+            </section>
+
+            <section id="interests">
+                <h2>Interests</h2>
+                <p>PC building, PC hardware, Gaming</p>
+            </section>
+        </div>
+    </div>
+
+<!--    <section id="references">-->
+<!--        <h2>References</h2>-->
+<!--        <p>Available upon request</p>-->
+<!--    </section>-->
+
+    <footer>
+        <p>© Alikhan Azanbayev 2025 | Last Updated: March 2025</p>
+    </footer>
+</div>
+
+<script>
+    function toggleTheme() {
+        const html = document.documentElement;
+        const themeIcon = document.getElementById('theme-icon');
+        const themeText = document.getElementById('theme-text');
+
+        if (html.getAttribute('data-theme') === 'light') {
+            html.setAttribute('data-theme', 'dark');
+            themeIcon.textContent = '☀️';
+            themeText.textContent = 'Light Mode';
+        } else {
+            html.setAttribute('data-theme', 'light');
+            themeIcon.textContent = '🌙';
+            themeText.textContent = 'Dark Mode';
+        }
+    }
+
+    // Animate elements when they come into view
+    document.addEventListener('DOMContentLoaded', function() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section, .timeline-item').forEach(element => {
+            observer.observe(element);
+        });
+    });
+</script>
+</body>
+</html>
