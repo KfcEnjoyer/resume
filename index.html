@@ -442,6 +442,47 @@
                 display: inline-flex;
             }
         }
+        
+        /* Print-specific styles */
+        @media print {
+            .theme-toggle, 
+            .download-btn {
+                display: none !important;
+            }
+            
+            body {
+                background-color: white;
+                color: black;
+            }
+            
+            section, 
+            .contact-item {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            
+            /* Ensure page breaks don't happen within sections */
+            section {
+                page-break-inside: avoid;
+            }
+            
+            /* Optimize for print layout */
+            .container {
+                width: 100%;
+                padding: 0;
+            }
+            
+            a {
+                color: #000;
+                text-decoration: none;
+            }
+            
+            /* Force background colors and images to print */
+            * {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
     </style>
 </head>
 <body>
@@ -482,7 +523,7 @@
             </div>
         </div>
 
-        <a href="#" class="download-btn">Download Resume</a>
+        <a href="javascript:void(0)" onclick="downloadAsPDF()" class="download-btn">Download Resume</a>
     </header>
 
     <section id="summary">
@@ -597,6 +638,7 @@ You can write to me directly on Telegram: @azanbay</p>
                     <span class="skill">Reactjs</span>
                     <span class="skill">Nodejs</span>
                     <span class="skill">Apache Kafka</span>
+                    <span class="skill">Apache Kafka</span>
                     <span class="skill">Distributed Computing</span>
                 </div>
             </section>
@@ -636,38 +678,35 @@ You can write to me directly on Telegram: @azanbay</p>
 </div>
 
 <script>
-    function toggleTheme() {
-        const html = document.documentElement;
-        const themeIcon = document.getElementById('theme-icon');
-        const themeText = document.getElementById('theme-text');
+function downloadAsPDF() {
+    // Hide the download button before printing
+    const downloadBtn = document.querySelector('.download-btn');
+    downloadBtn.style.display = 'none';
+    
+    // Use window.print() to trigger the browser's print dialog
+    window.print();
+    
+    // Show the button again after printing dialog is closed
+    setTimeout(function() {
+        downloadBtn.style.display = 'inline-block';
+    }, 100);
+}
 
-        if (html.getAttribute('data-theme') === 'light') {
-            html.setAttribute('data-theme', 'dark');
-            themeIcon.textContent = '☀️';
-            themeText.textContent = 'Light Mode';
-        } else {
-            html.setAttribute('data-theme', 'light');
-            themeIcon.textContent = '🌙';
-            themeText.textContent = 'Dark Mode';
-        }
+function toggleTheme() {
+    const html = document.documentElement;
+    const themeIcon = document.getElementById('theme-icon');
+    const themeText = document.getElementById('theme-text');
+    
+    if (html.getAttribute('data-theme') === 'light') {
+        html.setAttribute('data-theme', 'dark');
+        themeIcon.textContent = '☀️';
+        themeText.textContent = 'Light Mode';
+    } else {
+        html.setAttribute('data-theme', 'light');
+        themeIcon.textContent = '🌙';
+        themeText.textContent = 'Dark Mode';
     }
-
-    // Animate elements when they come into view
-    document.addEventListener('DOMContentLoaded', function() {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('section, .timeline-item').forEach(element => {
-            observer.observe(element);
-        });
-    });
+}
 </script>
 </body>
 </html>
