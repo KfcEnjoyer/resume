@@ -445,43 +445,131 @@
         
         /* Print-specific styles */
         @media print {
-            .theme-toggle, 
-            .download-btn {
-                display: none !important;
-            }
-            
-            body {
-                background-color: white;
-                color: black;
-            }
-            
-            section, 
-            .contact-item {
-                box-shadow: none;
-                border: 1px solid #ddd;
-            }
-            
-            /* Ensure page breaks don't happen within sections */
-            section {
-                page-break-inside: avoid;
-            }
-            
-            /* Optimize for print layout */
-            .container {
-                width: 100%;
-                padding: 0;
-            }
-            
-            a {
-                color: #000;
-                text-decoration: none;
-            }
-            
-            /* Force background colors and images to print */
-            * {
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
+    /* Hide elements not needed for printing */
+    .theme-toggle, 
+    .download-btn {
+        display: none !important;
+    }
+    
+    /* Reduce margins and padding */
+    body, html {
+        margin: 0;
+        padding: 0;
+    }
+    
+    .container {
+        width: 100%;
+        padding: 10px;
+        margin: 0;
+    }
+    
+    /* Scale down header elements */
+    header {
+        padding: 15px 0;
+    }
+    
+    .profile-img {
+        width: 100px;
+        height: 100px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 0;
+    }
+    
+    /* Make sections more compact */
+    section {
+        margin-bottom: 10px;
+        padding: 15px;
+        box-shadow: none;
+        border: 1px solid #ddd;
+        page-break-inside: avoid;
+    }
+    
+    /* Adjust heading sizes */
+    h2 {
+        font-size: 1.4rem;
+        padding-bottom: 8px;
+        margin-bottom: 12px;
+    }
+    
+    h3 {
+        font-size: 1.2rem;
+        margin-bottom: 5px;
+    }
+    
+    /* Make timeline items more compact */
+    .timeline-item {
+        margin-bottom: 15px;
+        padding-left: 15px;
+    }
+    
+    .timeline-item::before {
+        width: 10px;
+        height: 10px;
+        left: -6px;
+    }
+    
+    /* Adjust list item spacing */
+    li {
+        margin-bottom: 5px;
+    }
+    
+    /* Make skills display more efficiently */
+    .skills-container {
+        gap: 6px;
+    }
+    
+    .skill {
+        padding: 5px 10px;
+        font-size: 0.85rem;
+    }
+    
+    /* Adjust two-column layout for print */
+    .two-column {
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
+    }
+    
+    .column {
+        flex: 1;
+    }
+    
+    /* Shrink project descriptions */
+    .project {
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+    }
+    
+    /* Compress spacing */
+    p, ul {
+        margin-bottom: 8px;
+    }
+    
+    /* Force background colors to print */
+    * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    
+    /* Ensure footer is small */
+    footer {
+        padding: 10px 0;
+        font-size: 0.8rem;
+    }
+    
+    /* Optimize font sizes */
+    body {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+    
+    .date {
+        font-size: 0.8rem;
+        padding: 2px 8px;
+    }
         }
     </style>
 </head>
